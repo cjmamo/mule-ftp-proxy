@@ -1,0 +1,15 @@
+#!/usr/bin/ruby
+
+require 'trollop'
+require '../lib/ftp-proxy'
+
+# command line options parsing
+cmdopts = Trollop::options do
+  opt :config, "path to config file.", :type => :string
+end
+
+if cmdopts[:config].nil?
+  Trollop::die :config, "--config must be provided"
+end
+
+FTPPROXY::App.start(cmdopts[:config])
