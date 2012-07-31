@@ -1,7 +1,7 @@
 require 'net/ftp'
 require 'securerandom'
 
-class FtpProxyDriver
+class MuleFtpProxyDriver
   @@hidden_files = Hash.new
   @@mutex = Mutex.new
 
