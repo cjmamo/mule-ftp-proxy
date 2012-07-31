@@ -31,14 +31,20 @@ class MuleFtpProxyDriver
 
     @ftp.list(path) do |file|
       file_attrs = file.match(/([bcdelfmpSs-])(((r|-)(w|-)([xsStTL-]))((r|-)(w|-)([xsStTL-]))((r|-)(w|-)([xsStTL-])))\+?\s+(\d+)\s+(?:(\S+(?:\s\S+)*?)\s+)?(?:(\S+(?:\s\S+)*)\s+)?(\d+(?:,\s*\d+)?)\s+((?:\d+[-\/]\d+[-\/]\d+)|(?:\S+\s+\S+))\s+(\d+(?::\d+)?)\s+(\S*\s*.*)/)
+      file_path = path + (path[-1, 1] == '/' ? '' : '/') + file_attrs[21]
 
-      files << EM::FTPD::DirectoryItem.new(:name => file_attrs[21],
-                                           :time => Time.new(file_attrs[19] + ' ' + file_attrs[20]),
-                                           :permissions => file_attrs[2],
-                                           :owner => file_attrs[16],
-                                           :group => file_attrs[17],
-                                           :size => file_attrs[18],
-                                           :directory => file_attrs[1] == 'd' ? true : false)
+      if not @@hidden_files.value? file_path
+
+        files << EM::FTPD::DirectoryItem.new(:name => file_attrs[21],
+                                             :time => Time.new(file_attrs[19] + ' ' + file_attrs[20]),
+                                             :permissions => file_attrs[2],
+                                             :owner => file_attrs[16],
+                                             :group => file_attrs[17],
+                                             :size => file_attrs[18],
+                                             :directory => file_attrs[1] == 'd' ? true : false)
+
+      end
+
     end
 
     yield files
@@ -59,7 +65,7 @@ class MuleFtpProxyDriver
 
   def get_file(path, &block)
     @@mutex.synchronize do
-      if @@hidden_files.value?(path)
+      if @@hidden_files.value? path
         yield nil
       else
         @@hidden_files[@id] = path
