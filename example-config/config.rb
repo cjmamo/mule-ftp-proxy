@@ -1,6 +1,9 @@
-require '../lib/mule-ftp-proxy/mule-ftp-proxy-driver.rb'
+require 'lib/mule-ftp-proxy/mule-ftp-proxy-driver'
 
-driver      MuleFtpProxyDriver
+driver  MuleFtpProxyDriver
+
+#FTP hostname & port no. to which requests should be proxied to
 driver_args 'localhost', 8021
-port        8000
 
+#Port no. on which the FTP proxy will listen for requests
+port  8000

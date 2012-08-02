@@ -1,7 +1,10 @@
 #!/usr/bin/ruby
+$LOAD_PATH.unshift File.expand_path('..', File.dirname(__FILE__))
 
+require 'rubygems'
+require 'bundler/setup'
 require 'trollop'
-require '../lib/mule-ftp-proxy'
+require 'lib/mule-ftp-proxy'
 
 # command line options parsing
 cmdopts = Trollop::options do

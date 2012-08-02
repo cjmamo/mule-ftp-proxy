@@ -1,0 +1,12 @@
+To install:
+
+1. Install Ruby >= 1.9.2
+2. From the console, change to project root directory
+3. Run "gem install bundler"
+4. Run "bundle install" to install the project's dependencies
+
+To launch the FTP proxy, from the project root directory enter the following command:
+
+"ruby bin/mule-ftp-proxy --config [driver config]"
+
+For example, "ruby bin/mule-ftp-proxy --config example-config/config.rb"
