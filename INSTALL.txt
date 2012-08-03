@@ -1,8 +1,8 @@
 To install:
 
 1. Install Ruby >= 1.9.2
-2. From the console, change to project root directory
-3. Run "gem install bundler"
+2. Run "gem install bundler"
+3. From the console, change to the project root directory
 4. Run "bundle install" to install the project's dependencies
 
 To launch the FTP proxy, from the project root directory enter the following command:
